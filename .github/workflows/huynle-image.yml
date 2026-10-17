@@ -4,12 +4,11 @@ name: huynle image
 # `diegosouzapw/omniroute:<version>`) for linux/amd64 + linux/arm64 and push a
 # multi-arch manifest to ghcr.io/huynle/omniroute:<tag>.
 
+# Trigger: push a git tag `image/<tag>` (e.g. image/3.8.51-thinking.1).
 on:
-  workflow_dispatch:
-    inputs:
-      tag:
-        description: Image tag to publish (e.g. 3.8.51-thinking.1)
-        required: true
+  push:
+    tags:
+      - "image/*"
 
 permissions:
   contents: read
@@ -97,8 +96,9 @@ jobs:
 
       - name: Create multi-arch manifest
         env:
-          TAG: ${{ inputs.tag }}
+          TAG: ${{ github.ref_name }}
         run: |
+          TAG="${TAG#image/}"
           case "$TAG" in *[!A-Za-z0-9._-]*|"") echo "invalid tag" >&2; exit 1;; esac
           refs=""
           for f in /tmp/digests/*; do refs="$refs ${IMAGE}@$(cat "$f")"; done
