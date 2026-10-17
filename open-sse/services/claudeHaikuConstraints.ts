@@ -1,10 +1,23 @@
 type JsonRecord = Record<string, unknown>;
 
 // Models that reject `thinking.type:"adaptive"` and `output_config.effort` —
-// today, all Claude Haiku-tier models (4.5 / 3.5 / dated and aliased). Adaptive
+// Claude Haiku generations before 5 (4.5 / 3.5 / 3, dated and aliased). Adaptive
 // thinking + the effort knob landed on Sonnet 4.6 / Opus 4.5+ only; sending
-// either on Haiku is a hard 400 from the Messages API.
+// either on those Haiku models is a hard 400 from the Messages API. Haiku 5.x is
+// the opposite: it is adaptive-only and rejects `thinking.type:"enabled"`
+// ("Use thinking.type.adaptive and output_config.effort"), so it must be left alone.
 const HAIKU_CONSTRAINT_PATTERN = /haiku/i;
+const FIRST_ADAPTIVE_HAIKU_MAJOR = 5;
+
+// "claude-haiku-5-5", "anthropic.claude-haiku-4-5-…" → 5 / 4;
+// legacy "claude-3-5-haiku-…", "claude-3-haiku-…" → 3. Unknown shape → null.
+function haikuMajorVersion(modelId: string): number | null {
+  const legacy = /claude-(\d+)(?:[-.]\d+)?-haiku/i.exec(modelId);
+  if (legacy) return Number(legacy[1]);
+  // 1–2 digit major only, so a date suffix ("haiku-20241022") is never read as a version.
+  const modern = /haiku[-.](\d{1,2})(?!\d)/i.exec(modelId);
+  return modern ? Number(modern[1]) : null;
+}
 
 // Default budget when collapsing `thinking.type:"adaptive"` to a manual shape
 // on Haiku. Mirrors the upstream 9router decision (`claude.js`, commit
@@ -18,7 +31,9 @@ function asRecord(value: unknown): JsonRecord | null {
 
 function modelRejectsAdaptiveAndEffort(modelId: string | null | undefined): boolean {
   if (typeof modelId !== "string" || modelId.length === 0) return false;
-  return HAIKU_CONSTRAINT_PATTERN.test(modelId);
+  if (!HAIKU_CONSTRAINT_PATTERN.test(modelId)) return false;
+  const major = haikuMajorVersion(modelId);
+  return major === null || major < FIRST_ADAPTIVE_HAIKU_MAJOR;
 }
 
 /**
@@ -42,7 +57,7 @@ function modelRejectsAdaptiveAndEffort(modelId: string | null | undefined): bool
  * covers every routing mode (single-model, combo, fallback).
  *
  * Returns a NEW object only when it changes the body. No-op for non-Haiku
- * models, when the body carries no thinking/output_config, or when neither
+ * models, for Haiku 5+ (adaptive-only, see above), when the body carries no thinking/output_config, or when neither
  * `thinking.type:"adaptive"` nor `output_config.effort` is present — so the
  * existing Sonnet/Opus paths and Haiku bodies without these fields are
  * unaffected.

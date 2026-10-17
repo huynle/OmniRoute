@@ -97,3 +97,48 @@ describe("normalizeClaudeHaikuConstraints", () => {
     assert.deepEqual(out.thinking, { type: "enabled", budget_tokens: 10000 });
   });
 });
+
+// Claude Haiku 5.x is adaptive-only (the API rejects thinking.type:"enabled" with
+// "Use thinking.type.adaptive and output_config.effort"), so the pre-5 Haiku rewrite
+// must not touch it: the client's adaptive thinking, display and effort pass through.
+describe("normalizeClaudeHaikuConstraints — Haiku 5+ passthrough", () => {
+  for (const model of [
+    "claude-haiku-5-5",
+    "claude-haiku-5",
+    "claude-haiku-5.5",
+    "anthropic.claude-haiku-5-5-v1:0",
+  ]) {
+    it(`leaves adaptive thinking, display and effort unchanged on ${model}`, () => {
+      const input = {
+        model,
+        thinking: { type: "adaptive", display: "summarized" },
+        output_config: { effort: "high" },
+      };
+      const out = normalizeClaudeHaikuConstraints(input, model);
+      assert.equal(out, input);
+      assert.deepEqual(out.thinking, { type: "adaptive", display: "summarized" });
+      assert.deepEqual(out.output_config, { effort: "high" });
+    });
+  }
+
+  for (const model of [
+    "claude-haiku-4-5-20251001",
+    "claude-haiku-4.5",
+    "claude-3-5-haiku-20241022",
+    "claude-3-haiku-20240307",
+    "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+    "some-haiku",
+  ]) {
+    it(`still rewrites adaptive to enabled+budget on pre-5 ${model}`, () => {
+      const out = normalizeClaudeHaikuConstraints(
+        { model, thinking: { type: "adaptive", display: "summarized" } },
+        model
+      );
+      assert.deepEqual(out.thinking, {
+        type: "enabled",
+        display: "summarized",
+        budget_tokens: 10000,
+      });
+    });
+  }
+});

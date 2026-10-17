@@ -519,6 +519,17 @@ export const MODEL_SPECS: Record<string, ModelSpec> = {
     aliases: ["claude-haiku-4.5"],
   },
 
+  // ── Claude Haiku 5 (5.x) ────────────────────────────────────────
+  "claude-haiku-5": {
+    // Adaptive-thinking-only like Sonnet/Opus 5: the Messages API rejects
+    // thinking.type:"enabled" ("Use thinking.type.adaptive and output_config.effort").
+    // Token caps intentionally unset (not published here) so max_tokens is not clamped.
+    supportsThinking: true,
+    supportsTools: true,
+    supportsVision: true,
+    adaptiveThinkingOnly: true,
+  },
+
   // ── Kimi K3 (Moonshot API — 1M context/output, native vision) ────
   // `k3` is the Kimi Coding / kimi-coding-apikey wire id (#8250).
   "kimi-k3": {
