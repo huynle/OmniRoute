@@ -10,6 +10,8 @@
 
 import { createHash, randomBytes, randomUUID } from "node:crypto";
 
+import { shouldSuppressRedactThinking } from "./base/redactThinkingBeta.ts";
+
 import {
   CLAUDE_CODE_CLIENT_VERSION,
   CLAUDE_CODE_SDK_PACKAGE_VERSION,
@@ -426,11 +428,11 @@ export function selectBetaFlags(
   // interleaved-thinking semantics that conflict with a tool_choice-forced turn,
   // producing malformed opus tool_use streams when the client never asked for it.
   if (allowThinking) {
-    flags.push(
-      "interleaved-thinking-2025-05-14",
-      "redact-thinking-2026-02-12",
-      "thinking-token-count-2026-05-13"
-    );
+    flags.push("interleaved-thinking-2025-05-14");
+    // A client that explicitly asks for summarized (readable) thinking must not
+    // have it blanked by a redact beta it never negotiated.
+    if (!shouldSuppressRedactThinking(b, clientBeta)) flags.push("redact-thinking-2026-02-12");
+    flags.push("thinking-token-count-2026-05-13");
   }
   flags.push("context-management-2025-06-27", "prompt-caching-scope-2026-01-05");
   if (hasStructuredOutput || isFullAgent) flags.push("advisor-tool-2026-03-01");

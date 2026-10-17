@@ -134,6 +134,7 @@ export { sanitizeReasoningEffortForProvider } from "./base/reasoningEffort.ts";
 import { mergeAbortSignals } from "./base/mergeAbortSignals.ts";
 export { mergeAbortSignals } from "./base/mergeAbortSignals.ts";
 import { applyReasoningEffortRecovery } from "./base/reasoningEffortRecovery.ts";
+import { stripRedactThinkingBetaForVisibleThinking } from "./base/redactThinkingBeta.ts";
 
 function parseSerializedBody(bodyString: string): unknown {
   try {
@@ -1389,6 +1390,10 @@ export class BaseExecutor {
           );
         }
 
+        // Explicit `thinking.display: "summarized"` must not be blanked by redact-thinking.
+        stripRedactThinkingBetaForVisibleThinking(headers, transformedBody, clientHeaders, {
+          connectionOptedIn: ccRequestDefaults.redactThinking === true,
+        });
         stripInternalBodyFields(transformedBody);
         let bodyString = JSON.stringify(transformedBody);
 
