@@ -80,7 +80,7 @@ test("Kimi Code API-key validation uses the messages endpoint for both provider 
       assert.equal(calls.length, 2);
 
       // calls[0] is the models probe; calls[1] is the POST to the messages endpoint.
-      assert.equal(calls[1].url, "https://api.kimi.com/coding/v1/messages?beta=true");
+      assert.equal(calls[1].url, "https://api.kimi.ai/coding/v1/messages?beta=true");
       assert.equal(calls[1].method, "POST");
       assert.equal(calls[1].headers["x-api-key"], "sk-kimi-test");
       assert.equal(calls[1].headers["Anthropic-Version"], "2023-06-01");

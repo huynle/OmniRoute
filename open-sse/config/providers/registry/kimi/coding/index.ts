@@ -49,8 +49,8 @@ export const kimi_codingProvider: RegistryEntry = {
   oauth: {
     clientIdEnv: "KIMI_CODING_OAUTH_CLIENT_ID",
     clientIdDefault: resolvePublicCred("kimi_id"),
-    tokenUrl: "https://auth.kimi.com/api/oauth/token",
-    refreshUrl: "https://auth.kimi.com/api/oauth/token",
-    authUrl: "https://auth.kimi.com/api/oauth/device_authorization",
+    tokenUrl: "https://auth.kimi.ai/api/oauth/token",
+    refreshUrl: "https://auth.kimi.ai/api/oauth/token",
+    authUrl: "https://auth.kimi.ai/api/oauth/device_authorization",
   },
 };

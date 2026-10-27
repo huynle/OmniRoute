@@ -3497,8 +3497,8 @@
       }
     },
     "url": {
-      "nonStream": "https://api.kimi.com/coding/v1/messages?beta=true",
-      "stream": "https://api.kimi.com/coding/v1/messages?beta=true"
+      "nonStream": "https://api.kimi.ai/coding/v1/messages?beta=true",
+      "stream": "https://api.kimi.ai/coding/v1/messages?beta=true"
     }
   },
   "kimi-coding-apikey": {
@@ -3523,8 +3523,8 @@
       }
     },
     "url": {
-      "nonStream": "https://api.kimi.com/coding/v1/messages?beta=true",
-      "stream": "https://api.kimi.com/coding/v1/messages?beta=true"
+      "nonStream": "https://api.kimi.ai/coding/v1/messages?beta=true",
+      "stream": "https://api.kimi.ai/coding/v1/messages?beta=true"
     }
   },
   "kimi-web": {

@@ -242,7 +242,7 @@ export const WEB_SESSION_CREDENTIAL_REQUIREMENTS = {
   "kimi-web": {
     kind: "token",
     credentialName: "access_token",
-    placeholder: "access_token from www.kimi.com localStorage",
+    placeholder: "access_token from www.kimi.ai localStorage",
     acceptsFullCookieHeader: true,
     storageKeys: ["token", "access_token", "accessToken", "cookie", "kimi-auth"],
   },

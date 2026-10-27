@@ -53,8 +53,8 @@ export const PROVIDER_ENDPOINTS = {
   "qwen-cloud-token-plan":
     "https://token-plan.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1/chat/completions",
   kimi: "https://api.moonshot.ai/v1/chat/completions",
-  "kimi-coding": "https://api.kimi.com/coding/v1/messages",
-  "kimi-coding-apikey": "https://api.kimi.com/coding/v1/messages",
+  "kimi-coding": "https://api.kimi.ai/coding/v1/messages",
+  "kimi-coding-apikey": "https://api.kimi.ai/coding/v1/messages",
   minimax: "https://api.minimax.io/anthropic/v1/messages",
   "minimax-cn": "https://api.minimaxi.com/anthropic/v1/messages",
   crof: "https://crof.ai/v1/chat/completions",

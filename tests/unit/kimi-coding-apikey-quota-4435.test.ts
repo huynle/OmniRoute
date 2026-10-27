@@ -19,7 +19,7 @@ import assert from "node:assert/strict";
 import { getUsageForProvider, USAGE_FETCHER_PROVIDERS } from "../../open-sse/services/usage.ts";
 import { USAGE_SUPPORTED_PROVIDERS } from "../../src/shared/constants/providers.ts";
 
-const KIMI_USAGE_URL = "https://api.kimi.com/coding/v1/usages";
+const KIMI_USAGE_URL = "https://api.kimi.ai/coding/v1/usages";
 const realFetch = globalThis.fetch;
 let captured: Array<{ url: string; headers: Record<string, string> }> = [];
 

@@ -177,14 +177,14 @@ const RAW_CONFIGS: TokenExtractionConfig[] = [
   config(
     "kimi-web",
     "Kimi (Moonshot)",
-    "https://www.kimi.com/",
-    "https://www.kimi.com",
+    "https://www.kimi.ai/",
+    "https://www.kimi.ai",
     [
       { type: "localStorage", key: "access_token" },
-      { type: "cookie", name: "kimi-auth", domain: ".kimi.com" },
+      { type: "cookie", name: "kimi-auth", domain: ".kimi.ai" },
     ],
-    "Log in to Kimi at www.kimi.com. The current access_token will be extracted from localStorage; kimi-auth remains a legacy fallback.",
-    { cookieDomain: ".kimi.com" }
+    "Log in to Kimi at www.kimi.ai. The current access_token will be extracted from localStorage; kimi-auth remains a legacy fallback.",
+    { cookieDomain: ".kimi.ai" }
   ),
 
   // ── Blackbox Web ──────────────────────────────────────────

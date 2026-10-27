@@ -2,7 +2,7 @@
  * Moonshot Open Platform host recognition.
  *
  * Distinguishes prepaid Open Platform keys (api.moonshot.cn / api.moonshot.ai)
- * from Kimi Coding Plan (api.kimi.com/coding). Custom compatible nodes are
+ * from Kimi Coding Plan (api.kimi.ai/coding or api.kimi.com/coding). Custom compatible nodes are
  * identified by baseUrl host, not by provider id (those ids are uuids).
  */
 
@@ -13,6 +13,8 @@ export const MOONSHOT_OPEN_PLATFORM_HOSTS: ReadonlySet<string> = new Set([
   "api.moonshot.cn",
   "api.moonshot.ai",
 ]);
+
+const KIMI_CODING_HOSTS: ReadonlySet<string> = new Set(["api.kimi.ai", "api.kimi.com"]);
 
 export type MoonshotOriginConnection = {
   provider?: string;
@@ -62,7 +64,7 @@ function explicitBaseUrl(
 
 /**
  * True when the connection (or node) is pointed at Kimi Coding Plan
- * (`api.kimi.com/coding`), not Moonshot Open Platform prepaid balance.
+ * (`api.kimi.ai/coding` or `api.kimi.com/coding`), not Moonshot Open Platform prepaid balance.
  */
 export function isKimiCodingBaseUrl(baseUrl: string | null | undefined): boolean {
   if (typeof baseUrl !== "string" || baseUrl.trim() === "") return false;
@@ -73,7 +75,7 @@ export function isKimiCodingBaseUrl(baseUrl: string | null | undefined): boolean
     return false;
   }
   if (url.protocol !== "https:" && url.protocol !== "http:") return false;
-  if (url.hostname.toLowerCase() !== "api.kimi.com") return false;
+  if (!KIMI_CODING_HOSTS.has(url.hostname.toLowerCase())) return false;
   return url.pathname === "/coding" || url.pathname.startsWith("/coding/");
 }
 

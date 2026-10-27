@@ -15,6 +15,7 @@ import {
 } from "@/shared/utils/kimiBilling";
 import {
   buildKimiCodeIdentityHeaders,
+  KIMI_CODING_BASE_URL,
   getKimiCodeCliUserAgent,
 } from "../../config/providers/registry/kimi/coding/runtime.ts";
 import { toRecord, toNumber, clampPercentage } from "./scalars.ts";
@@ -24,8 +25,8 @@ type JsonRecord = Record<string, unknown>;
 
 // Kimi Coding API config
 const KIMI_CONFIG = {
-  baseUrl: "https://api.kimi.com/coding/v1",
-  usageUrl: "https://api.kimi.com/coding/v1/usages",
+  baseUrl: KIMI_CODING_BASE_URL,
+  usageUrl: `${KIMI_CODING_BASE_URL}/usages`,
   apiVersion: "2023-06-01",
 };
 

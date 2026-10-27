@@ -202,8 +202,8 @@ export const MUSE_CODE_CONFIG = {
 // Kimi Coding OAuth Configuration (Device Code Flow)
 export const KIMI_CODING_CONFIG = {
   clientId: resolvePublicCred("kimi_id", "KIMI_CODING_OAUTH_CLIENT_ID"),
-  deviceCodeUrl: "https://auth.kimi.com/api/oauth/device_authorization",
-  tokenUrl: "https://auth.kimi.com/api/oauth/token",
+  deviceCodeUrl: "https://auth.kimi.ai/api/oauth/device_authorization",
+  tokenUrl: "https://auth.kimi.ai/api/oauth/token",
 };
 
 // KiloCode OAuth Configuration (Custom Device Auth Flow)

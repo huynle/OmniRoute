@@ -1760,7 +1760,7 @@ test("provider models route uses provider-specific auth headers for Kimi Coding"
   });
 
   globalThis.fetch = async (url, init = {}) => {
-    assert.equal(String(url), "https://api.kimi.com/coding/v1/models");
+    assert.equal(String(url), "https://api.kimi.ai/coding/v1/models");
     assert.equal(init.method, "GET");
     assert.equal(init.headers["x-api-key"], "kimi-coding-key");
     assert.equal(init.headers.Authorization, undefined);

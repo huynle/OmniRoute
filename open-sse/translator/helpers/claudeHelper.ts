@@ -645,7 +645,7 @@ export function prepareClaudeRequest(
         // prepareClaudeRequest is only invoked when targetFormat === claude
         // (translator/index.ts:165-168), so any provider that lands here has
         // a Claude-format upstream: claude native, anthropic-compatible-*,
-        // kimi-coding (api.kimi.com/coding/v1/messages), glmt, zai, etc.
+        // kimi-coding (api.kimi.ai/coding/v1/messages), glmt, zai, etc.
         // All of these enforce the same body-shape contract for thinking mode:
         // when body.thinking.type === "enabled" and an assistant turn contains
         // a tool_use, the same content[] must include a thinking (or

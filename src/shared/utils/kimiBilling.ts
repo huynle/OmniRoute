@@ -7,7 +7,7 @@
  */
 
 export const KIMI_CODE_ADDITIONAL_CREDITS_URL =
-  "https://www.kimi.com/membership/subscription?tab=quota&aff=omniroute";
+  "https://www.kimi.ai/membership/subscription?tab=quota&aff=omniroute";
 
 type KimiExtraUsageStatus = "enabled" | "disabled" | "frozen" | "unavailable";
 

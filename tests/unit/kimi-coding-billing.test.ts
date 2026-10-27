@@ -146,7 +146,7 @@ test("kimi-coding exposes the official boosterWallet Extra Usage contract", asyn
     additionalCreditsUrl: KIMI_CODE_ADDITIONAL_CREDITS_URL,
   });
   assert.equal(calls.length, 1, "billing must come from the existing /usages read");
-  assert.equal(calls[0]?.url, "https://api.kimi.com/coding/v1/usages");
+  assert.equal(calls[0]?.url, "https://api.kimi.ai/coding/v1/usages");
   assert.equal(calls[0]?.headers.get("x-api-key"), "sk-kimi-fixture");
   assert.equal(calls[0]?.headers.get("authorization"), null);
 

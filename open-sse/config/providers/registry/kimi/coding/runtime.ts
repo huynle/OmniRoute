@@ -1,4 +1,4 @@
-export const KIMI_CODING_BASE_URL = "https://api.kimi.com/coding/v1";
+export const KIMI_CODING_BASE_URL = "https://api.kimi.ai/coding/v1";
 export const KIMI_CODING_MODELS_URL = `${KIMI_CODING_BASE_URL}/models`;
 export const KIMI_CODING_OPENAI_URL = `${KIMI_CODING_BASE_URL}/chat/completions`;
 export const KIMI_CODING_ANTHROPIC_URL = `${KIMI_CODING_BASE_URL}/messages?beta=true`;
@@ -112,7 +112,12 @@ function readFreshCache(): string | null {
 export function getKimiCodeCliVersion(): string {
   const override = readEnvOverride();
   if (override) return override;
-  if (typeof process !== "undefined" && !process.env.NODE_TEST_CONTEXT && !readFreshCache() && !inFlight) {
+  if (
+    typeof process !== "undefined" &&
+    !process.env.NODE_TEST_CONTEXT &&
+    !readFreshCache() &&
+    !inFlight
+  ) {
     void refreshKimiCodeCliVersion();
   }
   return pickAtLeastPin(readFreshCache());
